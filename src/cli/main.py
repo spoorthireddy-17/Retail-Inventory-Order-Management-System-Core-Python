@@ -18,7 +18,7 @@ order_svc = order_service()
 payment_svc = payment_service()
 report_svc = report_service()
 
-# ======================== PRODUCT CMDs ========================
+#  PRODUCT 
 def cmd_product_add(args):
     try:
         p = product_svc.add_product(args.name, args.sku, args.price, args.stock, args.category)
@@ -31,7 +31,7 @@ def cmd_product_list(args):
     ps = product_dao_inst.list_products(limit=100)
     print(json.dumps(ps, indent=2, default=str))
 
-# ======================== CUSTOMER CMDs ========================
+#  CUSTOMER 
 def cmd_customer_add(args):
     try:
         c = customer_dao_inst.create_customer(args.name, args.email, args.phone, args.city)
@@ -52,7 +52,7 @@ def cmd_customer_delete(args):
     except Exception as e:
         print("Error:", e)
 
-# ======================== ORDER CMDs ========================
+#  ORDER 
 def cmd_order_create(args):
     items = []
     for item in args.item:
@@ -84,7 +84,7 @@ def cmd_order_cancel(args):
     except Exception as e:
         print("Error:", e)
 
-# ======================== PAYMENT CMDs ========================
+#  PAYMENT 
 def cmd_payment_create(args):
     try:
         p = payment_svc.create_pending_payment(args.order, args.amount)
@@ -109,7 +109,7 @@ def cmd_payment_refund(args):
     except Exception as e:
         print("Error:", e)
 
-# ======================== REPORT CMDs ========================
+#  REPORT
 def cmd_report_top_products(args):
     data = report_svc.top_selling_products()
     print(json.dumps(data, indent=2))
@@ -126,7 +126,7 @@ def cmd_report_frequent_customers(args):
     data = report_svc.frequent_customers()
     print(json.dumps(data, indent=2))
 
-# ======================== BUILD PARSER ========================
+#  BUILD PARSER 
 def build_parser():
     parser = argparse.ArgumentParser(prog="retail-cli")
     sub = parser.add_subparsers(dest="cmd")
@@ -217,7 +217,7 @@ def build_parser():
 
     return parser
 
-# ======================== MAIN ========================
+#  MAIN 
 def main():
     parser = build_parser()
     args = parser.parse_args()
